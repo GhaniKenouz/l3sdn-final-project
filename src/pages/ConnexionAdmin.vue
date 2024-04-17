@@ -29,12 +29,6 @@
 
 <script>
 
-export const admins = [
-  { username: 'admin1', password: 'admin123' },
-  { username: 'admin2', password: 'admin456' },
-  // Ajoutez d'autres administrateurs si nécessaire
-]
-
 export default {
   data() {
     return {
@@ -44,8 +38,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      // Votre logique de connexion pour l'administrateur
-      // Par exemple, vous pouvez comparer les identifiants saisis avec des identifiants prédéfinis pour l'administrateur
+      // comparer les identifiants saisis avec des identifiants prédéfinis pour l'administrateur
       if (this.username === 'admin' && this.password === 'admin123') {
         // Connexion réussie pour l'administrateur
         console.log('Connexion en tant qu\'administrateur réussie')

@@ -1,6 +1,5 @@
 <script>
 import { QStepper, QStep, QBtn, QBanner, QRadio, QDate, QTime } from 'quasar'
-import { useRouter } from 'vue-router'
 
 export default {
   components: {

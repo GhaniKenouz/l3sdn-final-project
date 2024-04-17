@@ -81,15 +81,15 @@ export default {
         this.sortDirection = 'asc'
       }
     },
-    // Méthode pour rediriger vers la page user-dashboard
+    // rediriger vers la page user-dashboard
     redirectToUserDashboard() {
       this.$router.push('/user-dashboard')
     },
-    // Méthode pour rediriger vers la page MonProchaineEntretien
+    // rediriger vers la page MonProchaineEntretien
     redirectToMonProchainEntretien() {
       this.$router.push('/mon-prochain-entretien')
     },
-    // Méthode pour supprimer un entretien
+    // supprimer un entretien
     deleteEntretien(index) {
       this.entretiens.splice(index, 1)
     }

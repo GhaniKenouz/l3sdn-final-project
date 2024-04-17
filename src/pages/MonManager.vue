@@ -14,7 +14,6 @@
         <div class="info-label">Disponibilité :</div>
         <div class="info-value">Lundi - Vendredi, 9h00 - 17h00</div>
       </div>
-      <!-- Ajoutez d'autres informations pertinentes ici -->
     </div>
   </div>
 </template>

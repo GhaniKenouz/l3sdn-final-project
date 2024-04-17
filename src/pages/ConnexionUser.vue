@@ -32,7 +32,7 @@
 </template>
 
 <script>
-// Importez les méthodes de validation depuis le fichier auth.js dans le répertoire store
+// méthodes de validation depuis le fichier auth.js dans le répertoire store
 import { validateUser, validateAdmin } from '../stores/auth.js'
 
 export default {

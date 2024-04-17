@@ -2,55 +2,56 @@
   <div class="nombre-manages">
     <h2>Nombre de Manages (Admin)</h2>
     <button @click="addNewManage">Ajouter un manage</button>
-    <table id="manages-table">
-      <thead>
-        <tr>
-          <th>Nom (Titre du Job)</th>
-          <th>Âge</th>
-          <th>Prénom</th>
-          <th>Employé</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(manage, index) in manages" :key="index">
-          <td>{{ manage.nom }}</td>
-          <td>{{ manage.age }}</td>
-          <td>{{ manage.prenom }}</td>
-          <td>
-            <span class="checked" @click="toggleEmployed(index)">
-              {{ manage.employed ? '✔️' : '❌' }}
-            </span>
-          </td>
-          <td>
-            <button @click="editManage(index)">Modifier</button>
-            <button @click="deleteManage(index)">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div v-if="dialogVisible">
-      <div class="dialog">
-        <h3>{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }} le manage</h3>
-        <input v-model="editedManage.nom" type="text" placeholder="Nom (Titre du Job)" />
-        <input v-model="editedManage.age" type="number" placeholder="Âge" />
-        <input v-model="editedManage.prenom" type="text" placeholder="Prénom" />
-        <span>
-          <input id="employed" v-model="editedManage.employed" type="checkbox" />
-          <label for="employed">Employé</label>
-        </span>
-        <button @click="saveChanges">{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }}</button>
-        <button @click="cancelChanges">Annuler</button>
-      </div>
-      <div class="overlay"></div>
+    <div class="table-container">
+      <table id="manages-table">
+        <thead>
+          <tr>
+            <th>Nom (Titre du Job)</th>
+            <th>Âge</th>
+            <th>Prénom</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(manage, index) in manages" :key="index">
+            <td>{{ manage.nom }}</td>
+            <td>{{ manage.age }}</td>
+            <td>{{ manage.prenom }}</td>
+            <td>
+              <span class="checked" @click="toggleEmployed(index)">
+                {{ manage.employed ? '✔️' : '❌' }}
+              </span>
+            </td>
+            <td>
+              <button @click="editManage(index)">Modifier</button>
+              <button @click="deleteManage(index)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <div v-if="dialogVisible" class="dialog">
+      <h3>{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }} le manage</h3>
+      <input v-model="editedManage.nom" type="text" placeholder="Nom (Titre du Job)" />
+      <input v-model="editedManage.age" type="number" placeholder="Âge" />
+      <input v-model="editedManage.prenom" type="text" placeholder="Prénom" />
+      <input v-model="editedManage.salaire" type="number" placeholder="Salaire" />
+      <input v-model="editedManage.adresse" type="text" placeholder="Adresse" />
+      <input v-model="editedManage.telephone" type="text" placeholder="Numéro de téléphone" />
+      <span>
+        <input id="employed" v-model="editedManage.employed" type="checkbox" />
+        <label for="employed">Employé</label>
+      </span>
+      <button @click="saveChanges">{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }}</button>
+      <button @click="cancelChanges">Annuler</button>
+    </div>
+    <div v-if="dialogVisible" class="overlay"></div>
   </div>
 </template>
 
 <script>
-import 'jspdf-autotable'
-
 export default {
   data() {
     return {
@@ -81,6 +82,9 @@ export default {
         nom: '',
         age: null,
         prenom: '',
+        salaire: null,
+        adresse: '',
+        telephone: '',
         employed: false
       },
       editedIndex: null
@@ -95,6 +99,9 @@ export default {
         nom: '',
         age: null,
         prenom: '',
+        salaire: null,
+        adresse: '',
+        telephone: '',
         employed: false
       }
       this.dialogVisible = true
@@ -121,13 +128,13 @@ export default {
         nom: '',
         age: null,
         prenom: '',
+        salaire: null,
+        adresse: '',
+        telephone: '',
         employed: false
       }
       this.editedIndex = null
       this.dialogVisible = false
-    },
-    generatePDF() {
-
     }
   }
 }
@@ -182,5 +189,9 @@ th:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 99;
+}
+
+.table-container {
+  overflow: hidden;
 }
 </style>
