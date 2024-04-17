@@ -5,11 +5,10 @@
 
       <q-card-group class="dashboard-cards">
         <!-- Nombre de managés -->
-        <q-item clickable tag="a" :to="{ path: '/nombre-manages' }">
+        <q-item clickable tag="a" :href="'#/nombre-manages'">
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title">Nombre de managés</q-card-title>
-
               <div class="category-description">
                 Nombre total de gestionnaires dans l'entreprise
               </div>
@@ -17,47 +16,72 @@
           </q-card>
         </q-item>
 
-        <!-- Prochain entretien -->
-        <q-item clickable tag="a" :to="{ path: '/mon-prochain-entretien' }">
-          <q-card class="dashboard-card">
+        <!-- Prochain entretien personnel -->
+        <q-item clickable tag="a" :href="'#/mon-prochain-entretien-personnel'">
+          <q-card v-if="prochainEntretien" class="dashboard-card">
             <q-card-section>
-              <q-card-title class="dashboard-card-title">Prochain entretien</q-card-title>
-
-              <div class="category-description">Date du prochain entretien planifié</div>
+              <q-card-title class="dashboard-card-title">Prochain entretien personnel</q-card-title>
+              <div class="category-description">Date : {{ prochainEntretien.date }}, Heure : {{ prochainEntretien.time }}</div>
+            </q-card-section>
+          </q-card>
+          <q-card v-else class="dashboard-card">
+            <q-card-section>
+              <q-card-title class="dashboard-card-title">Prochain entretien personnel</q-card-title>
+              <div class="category-description">Aucun entretien personnel planifié</div>
             </q-card-section>
           </q-card>
         </q-item>
 
         <!-- Mon manager -->
-        <q-item clickable tag="a" :to="{ path: '/mon-manager' }">
+        <q-item clickable tag="a" :href="'#/mon-manager'">
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title">Mon manager</q-card-title>
-
               <div class="category-description">Nom de votre superviseur ou manager</div>
             </q-card-section>
           </q-card>
         </q-item>
 
-        <!-- Mon prochain entretien personnel -->
-        <q-item clickable tag="a" :to="{ path: '/mon-prochain-entretien-personnel' }">
+        <!-- Prochain entretien -->
+        <q-item clickable tag="a" :href="'#/mon-prochain-entretien'">
           <q-card class="dashboard-card">
             <q-card-section>
-              <q-card-title class="dashboard-card-title"
-                >Mon prochain entretien personnel</q-card-title>
-
-              <div class="category-description">Date de votre prochain entretien personnel</div>
+              <q-card-title class="dashboard-card-title">Prochain entretien</q-card-title>
+              <div class="category-description">Date du prochain entretien planifié</div>
             </q-card-section>
           </q-card>
         </q-item>
+
       </q-card-group>
     </q-container>
   </q-page>
 </template>
 
 <script>
+import { entretiens, updateEntretiens } from '../router/entretiens.js'
+
 export default {
-  name: 'user-dashboard'
+  name: 'user-dashboard',
+  data() {
+    return {
+      prochainEntretien: null
+    }
+  },
+  mounted() {
+    this.prochainEntretien = this.findNextPersonalEntretien()
+  },
+  methods: {
+    findNextPersonalEntretien() {
+      const currentDate = new Date()
+      for (const entretien of entretiens) {
+        const entretienDate = new Date(entretien.date)
+        if (entretienDate >= currentDate) {
+          return entretien
+        }
+      }
+      return null
+    }
+  }
 }
 </script>
 
@@ -78,40 +102,34 @@ export default {
 }
 
 .dashboard-card {
-  flex: calc(50% - 20px); /* Largeur initiale */
+  flex: calc(50% - 20px);
   margin-bottom: 0px;
-  transition: transform 0.3s; /* Animation au survol */
+  transition: transform 0.3s;
 }
 
 .dashboard-card:hover {
-  transform: scale(1.05); /* Zoom au survol */
+  transform: scale(1.05);
 }
 
 .dashboard-card-title {
-  font-size: 50px;
-  width: 100%; /* Largeur de la carte */
+  font-size: 24px;
+  width: 100%;
 }
 
 .category-description {
-  font-size: 14px; /* Taille de police */
-  margin-top: 5px; /* Espacement par rapport au titre */
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .q-item {
-  min-width: 110px; /* Largeur minimale */
-  min-height: 90px; /* Hauteur minimale */
-  padding: 0px; /* Espacement interne */
-  padding-top: 0px;
-  margin-left: 2%;
-  margin-top: 2%;
-  margin-right: 2%;
-  padding-bottom: 0px;
+  min-width: 45%;
+  padding: 0px;
+  margin: 1%;
   color: inherit;
-  transition: color 0.3s, background-color 0.3s;
 }
 
 .q-card {
-  font-size: 10px; /* Taille de police */
-  font-weight: 500; /* Poids de la police */
+  font-size: 10px;
+  font-weight: 500;
 }
 </style>

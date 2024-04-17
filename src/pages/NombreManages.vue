@@ -1,7 +1,11 @@
 <template>
-  <div class="nombre-manages">
-    <h2>Nombre de Manages</h2>
-    <button @click="generatePDF">Générer PDF</button>
+  <q-page class="nombre-manages">
+    <q-toolbar>
+      <q-toolbar-title>
+        Nombre de Manages
+      </q-toolbar-title>
+    </q-toolbar>
+
     <table id="manages-table">
       <thead>
         <tr>
@@ -24,7 +28,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </q-page>
 </template>
 
 <script>

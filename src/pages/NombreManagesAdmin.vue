@@ -1,7 +1,7 @@
 <template>
   <div class="nombre-manages">
     <h2>Nombre de Manages (Admin)</h2>
-    <button @click="addNewManage">Ajouter un manage</button>
+    <q-btn color="primary" @click="addNewManage">Ajouter un manage</q-btn>
     <div class="table-container">
       <table id="manages-table">
         <thead>
@@ -24,30 +24,29 @@
               </span>
             </td>
             <td>
-              <button @click="editManage(index)">Modifier</button>
-              <button @click="deleteManage(index)">Supprimer</button>
+              <q-icon name="edit" @click="editManage(index)" />
+              <span class="button-space"></span> <!-- Ajouter un espace -->
+              <q-icon name="delete" @click="deleteManage(index)" />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div v-if="dialogVisible" class="dialog">
+    <q-modal v-if="dialogVisible" v-model="dialogVisible" position="top" class="dialog">
       <h3>{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }} le manage</h3>
-      <input v-model="editedManage.nom" type="text" placeholder="Nom (Titre du Job)" />
-      <input v-model="editedManage.age" type="number" placeholder="Âge" />
-      <input v-model="editedManage.prenom" type="text" placeholder="Prénom" />
-      <input v-model="editedManage.salaire" type="number" placeholder="Salaire" />
-      <input v-model="editedManage.adresse" type="text" placeholder="Adresse" />
-      <input v-model="editedManage.telephone" type="text" placeholder="Numéro de téléphone" />
-      <span>
-        <input id="employed" v-model="editedManage.employed" type="checkbox" />
-        <label for="employed">Employé</label>
-      </span>
-      <button @click="saveChanges">{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }}</button>
-      <button @click="cancelChanges">Annuler</button>
-    </div>
-    <div v-if="dialogVisible" class="overlay"></div>
+      <q-input v-model="editedManage.nom" label="Nom (Titre du Job)" />
+      <q-input v-model="editedManage.age" type="number" label="Âge" />
+      <q-input v-model="editedManage.prenom" label="Prénom" />
+      <q-input v-model="editedManage.salaire" type="number" label="Salaire" />
+      <q-input v-model="editedManage.adresse" label="Adresse" />
+      <q-input v-model="editedManage.telephone" label="Numéro de téléphone" />
+      <q-checkbox v-model="editedManage.employed" label="Employé" />
+      <q-btn color="primary" @click="saveChanges">{{ editedIndex !== null ? 'Modifier' : 'Ajouter' }}</q-btn>
+      <q-btn color="negative" @click="cancelChanges">Annuler</q-btn>
+    </q-modal>
+
+    <q-overlay v-if="dialogVisible" />
   </div>
 </template>
 
@@ -75,8 +74,6 @@ export default {
           employed: true
         }
       ],
-      sortByColumn: null,
-      sortAscending: true,
       dialogVisible: false,
       editedManage: {
         nom: '',
@@ -193,5 +190,9 @@ th:hover {
 
 .table-container {
   overflow: hidden;
+}
+
+.button-space {
+  margin-left: 10px; /* Ajustez la valeur selon vos besoins */
 }
 </style>

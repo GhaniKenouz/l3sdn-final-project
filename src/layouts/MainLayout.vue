@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="custom-toolbar">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
@@ -68,3 +68,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.custom-toolbar {
+  background-color: grey; /* Change la couleur de la toolbar en gris */
+}
+</style>
