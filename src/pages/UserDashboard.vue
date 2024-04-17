@@ -9,8 +9,7 @@
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title">Nombre de managés</q-card-title>
-              <div class="text-h6">5</div>
-              <!-- Exemple de nombre de managés -->
+
               <div class="category-description">
                 Nombre total de gestionnaires dans l'entreprise
               </div>
@@ -19,12 +18,11 @@
         </q-item>
 
         <!-- Prochain entretien -->
-        <q-item clickable tag="a" :to="{ path: '/prochain-entretien' }">
+        <q-item clickable tag="a" :to="{ path: '/mon-prochain-entretien' }">
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title">Prochain entretien</q-card-title>
-              <div class="text-h6">25 avril 2024</div>
-              <!-- Exemple de date de prochain entretien -->
+
               <div class="category-description">Date du prochain entretien planifié</div>
             </q-card-section>
           </q-card>
@@ -35,22 +33,19 @@
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title">Mon manager</q-card-title>
-              <div class="text-h6">John Doe</div>
-              <!-- Exemple de nom de manager -->
+
               <div class="category-description">Nom de votre superviseur ou manager</div>
             </q-card-section>
           </q-card>
         </q-item>
 
         <!-- Mon prochain entretien personnel -->
-        <q-item clickable tag="a" :to="{ path: '/prochain-entretien-personnel' }">
+        <q-item clickable tag="a" :to="{ path: '/mon-prochain-entretien-personnel' }">
           <q-card class="dashboard-card">
             <q-card-section>
               <q-card-title class="dashboard-card-title"
-                >Mon prochain entretien personnel</q-card-title
-              >
-              <div class="text-h6">30 avril 2024</div>
-              <!-- Exemple de date de prochain entretien personnel -->
+                >Mon prochain entretien personnel</q-card-title>
+
               <div class="category-description">Date de votre prochain entretien personnel</div>
             </q-card-section>
           </q-card>
@@ -93,7 +88,7 @@ export default {
 }
 
 .dashboard-card-title {
-  font-size: 30px;
+  font-size: 50px;
   width: 100%; /* Largeur de la carte */
 }
 
@@ -107,8 +102,9 @@ export default {
   min-height: 90px; /* Hauteur minimale */
   padding: 0px; /* Espacement interne */
   padding-top: 0px;
-  margin-left: 5%;
-  margin-top: 5%;
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-right: 2%;
   padding-bottom: 0px;
   color: inherit;
   transition: color 0.3s, background-color 0.3s;

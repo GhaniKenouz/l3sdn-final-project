@@ -10,9 +10,9 @@ const routes = [
       { path: 'admin-dashboard', component: () => import('pages/AdminDashboard.vue') }, // Route pour le dashboard de l'administrateur
       { path: 'nombre-manages', component: () => import('pages/NombreManages.vue') }, // Nouvelle route pour la page NombreManages
       { path: 'nombre-manages-admin', component: () => import('pages/NombreManagesAdmin.vue') }, // Nouvelle route pour la page NombreManages
-      { path: 'prochain-entretien', component: () => import('pages/ProchainEntretien.vue') }, // Nouvelle route pour la page ProchainEntretien
+      { path: 'mon-prochain-entretien', component: () => import('pages/MonProchainEntretien.vue') }, // Nouvelle route pour la page ProchainEntretien
       { path: 'mon-manager', component: () => import('pages/MonManager.vue') }, // Nouvelle route pour la page MonManager
-      { path: 'prochain-entretien-personnel', component: () => import('pages/ProchainEntretienPersonnel.vue') } // Nouvelle route pour la page ProchainEntretienPersonnel
+      { path: 'mon-prochain-entretien-personnel', component: () => import('pages/MonProchainEntretienPersonnel.vue') } // Nouvelle route pour la page ProchainEntretienPersonnel
     ]
   },
 

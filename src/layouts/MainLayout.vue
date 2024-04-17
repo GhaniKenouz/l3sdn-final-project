@@ -5,6 +5,9 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> Menu </q-toolbar-title>
+
+        <!-- Bouton de déconnexion dans la barre d'outils -->
+        <q-btn flat dense icon="logout" aria-label="Déconnexion" @click="goTo('ConnexionUser')" />
       </q-toolbar>
     </q-header>
 

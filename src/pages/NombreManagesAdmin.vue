@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import jsPDF from 'jspdf/dist/jspdf.umd'
 import 'jspdf-autotable'
 
 export default {
@@ -128,7 +127,7 @@ export default {
       this.dialogVisible = false
     },
     generatePDF() {
-      // Logique de génération de PDF
+
     }
   }
 }
