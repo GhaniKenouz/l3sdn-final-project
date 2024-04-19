@@ -8,7 +8,7 @@ export const users = [
 export const admins = [
   { username: 'admin1', password: 'admin123' },
   { username: 'admin2', password: 'admin456' },
-]
+] 
 
 // valider l'authentification de l'utilisateur
 export function validateUser(username, password) {

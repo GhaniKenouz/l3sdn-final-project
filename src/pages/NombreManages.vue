@@ -1,40 +1,38 @@
 <template>
-  <q-page class="nombre-manages">
+  <q-page class="nombre-manages" style="height: 100%">
     <q-toolbar>
-      <q-toolbar-title>
-        Nombre de Manages
-      </q-toolbar-title>
+      <q-toolbar-title>Nombre de Manages</q-toolbar-title>
     </q-toolbar>
 
-    <table id="manages-table">
-      <thead>
-        <tr>
-          <th @click="sortBy('nom')">Nom (Titre du Job)</th>
-          <th @click="sortBy('age')">Âge</th>
-          <th>Prénom</th>
-          <th>Employé</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(manage, index) in manages" :key="index">
-          <td>{{ manage.nom }}</td>
-          <td>{{ manage.age }}</td>
-          <td>{{ manage.prenom }}</td>
-          <td>
-            <span class="checked" @click="toggleEmployed(index)">
-              {{ manage.employed ? '✔️' : '❌' }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table id="manages-table">
+        <thead>
+          <tr>
+            <th @click="sortBy('nom')">Nom (Titre du Job)</th>
+            <th @click="sortBy('age')">Âge</th>
+            <th>Prénom</th>
+            <th>Employé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(manage, index) in manages" :key="index">
+            <td>{{ manage.nom }}</td>
+            <td>{{ manage.age }}</td>
+            <td>{{ manage.prenom }}</td>
+            <td>
+              <span class="checked" @click="toggleEmployed(index)">
+                {{ manage.employed ? '✔️' : '❌' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </q-page>
 </template>
 
 <script>
-import jsPDF from 'jspdf/dist/jspdf.umd'
-import 'jspdf-autotable'
-
 export default {
   data() {
     return {
@@ -44,7 +42,8 @@ export default {
         { nom: 'Chef de projet', age: 32, prenom: 'Bob', employed: true }
       ],
       sortByColumn: null,
-      sortAscending: true
+      sortAscending: true,
+      isDark: false 
     }
   },
   methods: {
@@ -65,20 +64,6 @@ export default {
     },
     toggleEmployed(index) {
       this.manages[index].employed = !this.manages[index].employed
-    },
-    generatePDF() {
-      const doc = new jsPDF()
-      const tableData = this.manages.map((manage) => [
-        manage.nom,
-        manage.age,
-        manage.prenom,
-        manage.employed ? '✔️' : '❌'
-      ])
-      doc.autoTable({
-        head: [['Nom (Titre du Job)', 'Âge', 'Prénom', 'Employé']],
-        body: tableData
-      })
-      doc.save('manages.pdf')
     }
   }
 }
@@ -87,6 +72,11 @@ export default {
 <style scoped>
 .nombre-manages {
   margin: 20px;
+}
+
+.table-container {
+  height: calc(100vh - 200px);
+  overflow: auto;
 }
 
 table {
@@ -112,5 +102,14 @@ th:hover {
 .checked {
   color: green;
   cursor: pointer;
+}
+
+.q-page {
+  width: 100%;
+}
+
+.q-dark body {
+  background-color: #212121;
+  color: #fff;
 }
 </style>

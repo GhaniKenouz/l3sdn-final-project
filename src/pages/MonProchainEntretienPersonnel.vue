@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ 'q-dark': isDark }">
     <div class="table-container">
       <table class="entretiens-table">
         <thead>
@@ -7,19 +7,23 @@
             <th @click="sortColumn('manager')">Manager</th>
             <th @click="sortColumn('date')">Date</th>
             <th @click="sortColumn('time')">Heure</th>
+            <th>Note</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(entretien, index) in sortedEntretiens" :key="index">
+          <tr v-for="entretien in sortedEntretiens" :key="entretien.id">
             <td>{{ entretien.manager }}</td>
             <td>{{ entretien.date }}</td>
             <td>{{ entretien.time }}</td>
             <td>
+              <star-rating :rating="entretien.rating" :editable="true" @input="updateRating(entretien.id, $event)" />
+            </td>
+            <td>
               <q-icon
                 name="delete"
                 class="cursor-pointer"
-                @click="deleteEntretien(index)"
+                @click="deleteEntretien(entretien.id)"
               />
             </td>
           </tr>
@@ -36,29 +40,24 @@
         @click="redirectToMonProchainEntretien"
       />
     </div>
-
-    <!-- Bouton pour revenir en arrière vers user-dashboard -->
-    <div class="button-container">
-      <q-btn
-        class="back-button"
-        color="primary"
-        label="Retour"
-        @click="redirectToUserDashboard"
-      />
-    </div>
   </div>
 </template>
 
 <script>
-import { entretiens } from '../router/entretiens.js'
+import { entretiens, updateEntretiens } from '../router/entretiens.js'
+import StarRating from '../pages/StarRating.vue'
 
 export default {
   name: 'MonProchainEntretienPersonnel',
+  components: {
+    StarRating
+  },
   data() {
     return {
       entretiens: entretiens,
       sortDirection: 'asc',
-      sortBy: 'date'
+      sortBy: 'date',
+      isDark: false
     }
   },
   computed: {
@@ -87,18 +86,29 @@ export default {
     },
     // rediriger vers la page MonProchaineEntretien
     redirectToMonProchainEntretien() {
-      this.$router.push('/mon-prochain-entretien')
+      this.$router.push('/dashboard/mon-prochain-entretien')
     },
     // supprimer un entretien
-    deleteEntretien(index) {
-      this.entretiens.splice(index, 1)
+    deleteEntretien(id) {
+      const index = this.entretiens.findIndex(entretien => entretien.id === id)
+      if (index !== -1) {
+        this.entretiens.splice(index, 1)
+        updateEntretiens(this.entretiens) // Mettre à jour les entretiens dans le fichier entretiens.js
+      }
+    },
+    // mise à jour de la note d'entretien
+    updateRating(id, rating) {
+      const entretien = this.entretiens.find(entretien => entretien.id === id)
+      if (entretien) {
+        entretien.rating = rating
+        updateEntretiens(this.entretiens) // Mettre à jour les entretiens dans le fichier entretiens.js
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-/* Styles CSS pour les tableaux */
 .container {
   display: flex;
   flex-direction: column;
@@ -150,8 +160,21 @@ export default {
   width: 250px;
 }
 
-/* Animation d'agrandissement léger */
 .table-container:hover .entretiens-table {
   transform: scale(1.05);
+}
+
+.q-dark .entretiens-table th,
+.q-dark .entretiens-table td {
+  border-color: #fff;
+}
+
+.q-dark .button-container {
+  color: #fff;
+}
+
+.q-dark .back-button,
+.q-dark .create-button {
+  color: #fff; 
 }
 </style>

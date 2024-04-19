@@ -1,69 +1,53 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout :view="isDark ? 'lHh Lpr lFf dark' : 'lHh Lpr lFf'">
     <q-header elevated class="custom-toolbar">
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-
-        <q-toolbar-title> Menu </q-toolbar-title>
+        <!-- Bouton pour le darkmode -->
+        <q-icon
+          style="font-size: 1.2rem; margin-right: 10px"
+          class="moon-icon"
+          :name="isDark ? 'wb_sunny' : 'brightness_3'"
+          @click="toggleDarkMode"
+        />
 
         <!-- Bouton de déconnexion dans la barre d'outils -->
         <q-btn flat dense icon="logout" aria-label="Déconnexion" @click="goTo('ConnexionUser')" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Menu </q-item-label>
-
-        <q-item clickable @click="goTo('ConnexionUser')">
-          <q-item-section avatar>
-            <q-icon name="login" />
-          </q-item-section>
-
-          <q-item-section> Connexion </q-item-section>
-        </q-item>
-
-        <q-item clickable @click="goTo('dashboard')">
-          <q-item-section avatar>
-            <q-icon name="dashboard" />
-          </q-item-section>
-
-          <q-item-section> Dashboard </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
+    <q-page-container :class="{ 'q-dark': isDark }" class="login-page">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'MainLayout',
 
   setup() {
-    const leftDrawerOpen = ref(false)
     const router = useRouter()
+    const isDark = ref(false)
+
+    onMounted(() => {
+      router.push('/ConnexionUser')
+    })
 
     const goTo = (page) => {
-      if (page === 'ConnexionUser') {
-        router.push('/ConnexionUser')
-      } else if (page === 'dashboard') {
-        router.push('/user-dashboard')
-      }
+      router.push('/' + page)
+    }
+
+    const toggleDarkMode = () => {
+      isDark.value = !isDark.value
     }
 
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-      goTo
+      isDark,
+      goTo,
+      toggleDarkMode
     }
   }
 })
@@ -71,6 +55,16 @@ export default defineComponent({
 
 <style scoped>
 .custom-toolbar {
-  background-color: grey; /* Change la couleur de la toolbar en gris */
+  background-color: grey;
+}
+
+.moon-icon {
+  cursor: pointer;
+}
+
+.login-page {
+  background-image: url('../assets/teamwork.jpg');
+  background-size: cover;
+  height: 100vh;
 }
 </style>

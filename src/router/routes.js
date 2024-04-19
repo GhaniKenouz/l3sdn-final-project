@@ -5,17 +5,32 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'ConnexionUser', component: () => import('pages/ConnexionUser.vue') },
-      { path: 'ConnexionAdmin', component: () => import('pages/ConnexionAdmin.vue') },
-      { path: 'user-dashboard', component: () => import('pages/UserDashboard.vue') }, // Route pour le dashboard de l'utilisateur
-      { path: 'admin-dashboard', component: () => import('pages/AdminDashboard.vue') }, // Route pour le dashboard de l'administrateur
-      { path: 'nombre-manages', component: () => import('pages/NombreManages.vue') }, // Nouvelle route pour la page NombreManages
-      { path: 'nombre-manages-admin', component: () => import('pages/NombreManagesAdmin.vue') }, // Nouvelle route pour la page NombreManages
-      { path: 'mon-prochain-entretien', component: () => import('pages/MonProchainEntretien.vue') }, // Nouvelle route pour la page ProchainEntretien
-      { path: 'mon-manager', component: () => import('pages/MonManager.vue') }, // Nouvelle route pour la page MonManager
-      { path: 'mon-prochain-entretien-personnel', component: () => import('pages/MonProchainEntretienPersonnel.vue') } // Nouvelle route pour la page ProchainEntretienPersonnel
     ]
   },
-
+  {
+    path: '/dashboard',
+    component: () => import('layouts/UserLayout.vue'),
+    children: [
+      { path: 'user-dashboard', component: () => import('pages/UserDashboard.vue') },
+      { path: 'nombre-manages', component: () => import('pages/NombreManages.vue') },
+      { path: 'mon-prochain-entretien', component: () => import('pages/MonProchainEntretien.vue') },
+      { path: 'mon-manager', component: () => import('pages/MonManager.vue') },
+      { path: 'mon-prochain-entretien-personnel', component: () => import('pages/MonProchainEntretienPersonnel.vue') },
+      { path: 'mon-profil', component: () => import('pages/MonProfil.vue') },
+    ]
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'), 
+    children: [
+      { path: 'admin-dashboard', component: () => import('pages/AdminDashboard.vue') },
+      { path: 'mon-prochain-entretien', component: () => import('pages/MonProchainEntretien.vue') },
+      { path: 'mon-manager', component: () => import('pages/MonManager.vue') },
+      { path: 'mon-prochain-entretien-personnel', component: () => import('pages/MonProchainEntretienPersonnel.vue') },
+      { path: 'mon-profil', component: () => import('pages/MonProfil.vue') },
+      { path: 'nombre-manages-admin', component: () => import('pages/NombreManagesAdmin.vue') },
+    ]
+  },
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')

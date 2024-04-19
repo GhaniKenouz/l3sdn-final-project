@@ -1,0 +1,30 @@
+On peut s'identifier en 
+
+utilisateur:
+
+utilisateur : utilisateur1
+mot de passe : 123
+
+En administrateur : 
+
+utilisateur : admin1
+mot de passe : admin123
+
+Notes : 
+
+Dans "Mon Manager", il est possible de cliquer sur les évenements du calendrier pour obtenir plus de details.
+
+Le bouton "Lune" sert à activer le Dark Mode :
+En ce qui concerne le dark mode, certaine partie dans certaine page reste blanche mais 
+le darkmode fonctionne bien, il n'y a pas d'erreur juste un warning.
+
+Le bouton "Maison" sert à revenir au Dashboard
+
+malheuresement étant seule pour le projet, je n'ai pas eu le temps d'implementer 
+l'api mais j'ai compris son fonctionnement et comment l'utiliser
+
+Il y a un menu différent celon la connexion, admin ou bien utilisateur.
+En mode administrateur, il est possible de modifier les informations dans nombre de managés.
+
+
+npm install @quasar/quasar-ui-qcalendar
